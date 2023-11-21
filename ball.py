@@ -31,3 +31,24 @@ class Ball:
 
         if abs(self.y + self.vy) > (self.canvas_height - self.size):
             self.vy = -self.vy
+class Simulation:
+    def __init__(self, num_balls, canvas_width, canvas_height, ball_radius):
+        self.balls = []
+        for _ in range(num_balls):
+            color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            x = random.randint(-canvas_width//2 + ball_radius, canvas_width//2 - ball_radius)
+            y = random.randint(-canvas_height//2 + ball_radius, canvas_height//2 - ball_radius)
+            vx = random.randint(-2, 2)
+            vy = random.randint(-2, 2)
+            ball = Ball(color, ball_radius, x, y, vx, vy, canvas_width, canvas_height)
+            self.balls.append(ball)
+
+    def update(self):
+        for ball in self.balls:
+            ball.move()
+
+    def draw(self):
+        turtle.clear()
+        for ball in self.balls:
+            ball.draw()
+        turtle.update()
